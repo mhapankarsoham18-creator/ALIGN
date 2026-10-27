@@ -1,0 +1,31 @@
+{
+ "role": "procurement-agent",
+ "decay": 0.9995,
+ "bigrams": {
+  "<start>": {
+   "supplier_price_api": 45.553866,
+   "read_catalog": 48.171354,
+   "create_purchase_request": 48.794028
+  },
+  "supplier_price_api": {
+   "supplier_price_api": 153.71267,
+   "read_catalog": 209.733548,
+   "create_purchase_request": 195.321138
+  },
+  "read_catalog": {
+   "create_purchase_request": 275.007555,
+   "read_catalog": 114.237008,
+   "supplier_price_api": 139.132895
+  },
+  "create_purchase_request": {
+   "supplier_price_api": 263.548502,
+   "read_catalog": 202.756801,
+   "create_purchase_request": 157.130995
+  }
+ },
+ "unigrams": {
+  "supplier_price_api": 601.947934,
+  "read_catalog": 574.898712,
+  "create_purchase_request": 676.253716
+ }
+}

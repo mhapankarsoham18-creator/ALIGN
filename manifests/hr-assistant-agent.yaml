@@ -1,0 +1,42 @@
+# AIDDS Role Manifest — HR Assistant Agent
+# See: docs/05_Role_Manifest_Spec.pdf
+
+role: hr-assistant-agent
+version: 1
+owner: people-ops-team
+description: Answers employee questions about leave policy, org chart, and onboarding.
+
+allowed_tools:
+  - leave_policy_api
+  - org_chart_api
+  - onboarding_docs
+
+allowed_data_classes:
+  - leave_policy
+  - org_chart
+  - onboarding
+
+forbidden_data_classes:
+  - payroll
+  - supplier
+  - finance_ledger
+
+egress_allowlist:
+  - hris.internal
+
+limits:
+  max_records_per_call: 100
+  max_bytes_out_per_hour: 1000000
+  max_calls_per_minute: 30
+
+requires_approval: []
+
+delegation:
+  may_call: []
+  pass_scopes: []
+
+honeypots:
+  - finance/ledger_2026_Q4.xlsx
+  - supplier/contracts_confidential.zip
+
+signature: "ed25519:aidds-owner:mY5WAceSIlpK+6InyQjkcy3X/STJN3EDlBhZrBHRDj9rylE6qTaP8ImTRlK0tNCQDkPDXs4Akivk8Zl6g6MuCQ=="

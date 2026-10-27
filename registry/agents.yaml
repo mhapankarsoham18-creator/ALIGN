@@ -1,0 +1,8 @@
+# AIDDS agent registry: binds an agent_id to the role it was provisioned with.
+# The detector evaluates an agent against its BOUND role, whatever role an event claims.
+# Agents not listed here are bound to the first role they present (first-seen binding).
+agents:
+  procurement-bot-04: procurement-agent
+  procurement-bot-07: procurement-agent
+  procurement-bot-NEW-12: procurement-agent
+  support-bot-02: support-agent

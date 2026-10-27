@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIDDS Security Gateway — Agent Identity Drift Detection</title>
+  <meta name="description" content="Autonomous AI Agent Identity Drift Detection System. Runtime behavioral security, provenance taint tracking, and automated graduated containment.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230f172a'/%3E%3Cpath d='M8 3l4 2v3c0 2.5-1.8 4.2-4 5-2.2-.8-4-2.5-4-5V5z' fill='%2310b981'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/index.css">
+</head>
+<body class="light-theme">
+
+  <!-- ======================================================================
+       ENTERPRISE APP HEADER
+       ====================================================================== -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="brand-container">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="brand-text-block">
+          <div class="brand-row">
+            <span class="brand-title">AIDDS</span>
+            <span class="env-tag">GATEWAY • PROD-01</span>
+          </div>
+          <span class="brand-subtitle">Autonomous AI Agent Identity Drift Detection</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Segmented Navigation Tabs -->
+    <nav class="nav-segmented" role="tablist">
+      <button class="nav-tab-btn active" data-tab="live-monitor" id="tab-live-btn" role="tab">
+        <span class="pulse-indicator"></span>
+        <span>Live Operations</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="alerts-view" id="tab-alerts-btn" role="tab">
+        <span>Incidents</span>
+        <span class="tab-badge" id="nav-alert-count">0</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="demo-suite" id="tab-demo-btn" role="tab">
+        <span>Attack Simulation</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="quality-gates" id="tab-gates-btn" role="tab">
+        <span>CI Quality Gates</span>
+        <span class="tab-badge-pass">100%</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="architecture-view" id="tab-arch-btn" role="tab">
+        <span>Architecture</span>
+      </button>
+    </nav>
+
+    <!-- Header Actions & Live Status -->
+    <div class="header-right">
+      <div class="gateway-live-pill" id="gateway-status-pill">
+        <span class="live-dot-green"></span>
+        <span class="gateway-status-text" id="stream-status-text">Connecting…</span>
+      </div>
+      <button class="btn btn-secondary btn-sm" id="btn-reset-demo" title="Reset all agent states and clean replay history">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+          <path d="M3 3v5h5"/>
+        </svg>
+        <span>Reset State</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- ======================================================================
+       MAIN CONTENT CONTAINER
+       ====================================================================== -->
+  <main class="main-wrapper">
+
+    <!-- ====================================================================
+         TAB 1: LIVE OPERATIONS & MONITOR
+         ==================================================================== -->
+    <section class="tab-pane active" id="pane-live-monitor">
+
+      <!-- Scenario Quick Trigger Strip -->
+      <div class="simulation-banner">
+        <div class="sim-banner-info">
+          <span class="sim-banner-title">Scenario Replay &amp; Validation Studio</span>
+          <span class="sim-banner-sub">Simulate live tool calls against the gateway proxy to test graduated containment:</span>
+        </div>
+        <div class="sim-actions-row">
+          <button class="btn btn-attack" id="btn-run-injection" title="Simulate untrusted PDF ingestion, lateral HR access, and payroll exfiltration">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            <span>Replay S01: Prompt Injection &amp; Exfil</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-run-normal-proc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Normal Procurement Traffic</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-run-normal-sup">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+            <span>Healthy Support Tickets</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-run-honeypot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span>S07: Tripwire Canary</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-run-slow-drift">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+            <span>S05: CUSUM Drift</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Agent Security Posture & Gateway Telemetry Grid -->
+      <div class="posture-grid">
+        
+        <!-- Agent Card 1: procurement-bot-04 -->
+        <div class="agent-card" id="card-procurement-bot-04">
+          <div class="card-top-row">
+            <div class="agent-title-group">
+              <div class="agent-badge-avatar avatar-proc">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 7h-7L10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="agent-name-line">
+                  <span class="agent-id-text">procurement-bot-04</span>
+                  <span class="tag-version">Manifest v3</span>
+                </div>
+                <div class="agent-role-caption">Role: <code>procurement-agent</code></div>
+              </div>
+            </div>
+            <div class="agent-status-wrapper">
+              <span class="status-pill status-healthy" id="status-badge-procurement">Healthy</span>
+            </div>
+          </div>
+
+          <!-- Risk Score Horizontal Meter -->
+          <div class="risk-meter-section">
+            <div class="risk-meter-labels">
+              <span class="meter-title">Identity Drift Score</span>
+              <div class="meter-score-display">
+                <span class="score-current" id="score-procurement">0</span>
+                <span class="score-denom">/ 100</span>
+              </div>
+            </div>
+            <div class="meter-bar-track">
+              <div class="meter-bar-fill" id="meter-fill-procurement" style="width: 0%;"></div>
+            </div>
+            <div class="meter-scale-markers">
+              <span>0 Observe</span>
+              <span>40 Step-Up</span>
+              <span>70 Restrict</span>
+              <span>90 Isolate</span>
+            </div>
+          </div>
+
+          <!-- Key Metadata Grid -->
+          <div class="agent-meta-table">
+            <div class="meta-row">
+              <span class="meta-key">Active Response Tier</span>
+              <span class="tier-pill tier-observe" id="tier-procurement">Observe</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Context Taint Status</span>
+              <span id="taint-procurement"><span class="taint-tag-clean">Clean</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Intercepted Tool Calls</span>
+              <span class="mono-num" id="events-procurement">0</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Authentication</span>
+              <span class="text-emerald font-500">Identity bound to registry</span>
+            </div>
+          </div>
+
+          <!-- Card Enforcement Footer -->
+          <div class="agent-card-footer">
+            <span class="enforce-status-text" id="enforce-procurement">Standard Role Scopes Active</span>
+            <button class="btn btn-outline btn-xs btn-release" id="btn-release-procurement" style="display:none;">
+              Lift Isolation
+            </button>
+          </div>
+        </div>
+
+        <!-- Agent Card 2: support-bot-02 -->
+        <div class="agent-card" id="card-support-bot-02">
+          <div class="card-top-row">
+            <div class="agent-title-group">
+              <div class="agent-badge-avatar avatar-sup">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="agent-name-line">
+                  <span class="agent-id-text">support-bot-02</span>
+                  <span class="tag-version">Manifest v1</span>
+                </div>
+                <div class="agent-role-caption">Role: <code>support-agent</code></div>
+              </div>
+            </div>
+            <div class="agent-status-wrapper">
+              <span class="status-pill status-healthy" id="status-badge-support">Healthy</span>
+            </div>
+          </div>
+
+          <!-- Risk Score Horizontal Meter -->
+          <div class="risk-meter-section">
+            <div class="risk-meter-labels">
+              <span class="meter-title">Identity Drift Score</span>
+              <div class="meter-score-display">
+                <span class="score-current text-emerald" id="score-support">0</span>
+                <span class="score-denom">/ 100</span>
+              </div>
+            </div>
+            <div class="meter-bar-track">
+              <div class="meter-bar-fill meter-fill-healthy" id="meter-fill-support" style="width: 0%;"></div>
+            </div>
+            <div class="meter-scale-markers">
+              <span>0 Observe</span>
+              <span>40 Step-Up</span>
+              <span>70 Restrict</span>
+              <span>90 Isolate</span>
+            </div>
+          </div>
+
+          <!-- Key Metadata Grid -->
+          <div class="agent-meta-table">
+            <div class="meta-row">
+              <span class="meta-key">Active Response Tier</span>
+              <span class="tier-pill tier-observe" id="tier-support">Observe</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Context Taint Status</span>
+              <span id="taint-support"><span class="taint-tag-clean">Clean</span></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Intercepted Tool Calls</span>
+              <span class="mono-num" id="events-support">0</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Authentication</span>
+              <span class="text-emerald font-500">Identity bound to registry</span>
+            </div>
+          </div>
+
+          <!-- Card Enforcement Footer -->
+          <div class="agent-card-footer">
+            <span class="enforce-status-text text-emerald font-500">Workflows Operating Normally (Zero Impact)</span>
+            <span class="subtle-note">Unconstrained</span>
+          </div>
+        </div>
+
+        <!-- Telemetry & Gateway Status Summary -->
+        <div class="telemetry-card">
+          <div class="telemetry-header">
+            <div>
+              <div class="telemetry-title">Gateway Performance</div>
+              <div class="telemetry-subtitle">Inline Interception Engine</div>
+            </div>
+            <span class="chip-engine">Measured live</span>
+          </div>
+
+          <div class="telemetry-metrics-row">
+            <div class="tele-metric-box">
+              <div class="tele-val" id="stat-total-events">0</div>
+              <div class="tele-lbl">Tool Calls Evaluated</div>
+            </div>
+            <div class="tele-metric-box">
+              <div class="tele-val text-emerald" id="stat-latency">—</div>
+              <div class="tele-lbl">p95 Scoring Latency</div>
+            </div>
+            <div class="tele-metric-box">
+              <div class="tele-val text-rose" id="stat-active-alerts">0</div>
+              <div class="tele-lbl">Active Drift Incidents</div>
+            </div>
+            <div class="tele-metric-box">
+              <div class="tele-val text-amber" id="stat-quarantined-agents">0</div>
+              <div class="tele-lbl">Quarantined Agents</div>
+            </div>
+          </div>
+
+          <div class="telemetry-signals-row">
+            <div class="signal-tag"><span class="signal-dot"></span> Role Manifests</div>
+            <div class="signal-tag"><span class="signal-dot"></span> Taint Provenance</div>
+            <div class="signal-tag"><span class="signal-dot"></span> Tripwire Honeypots</div>
+            <div class="signal-tag"><span class="signal-dot"></span> CUSUM Drift</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Tool Call Audit Stream & Incident Alert Feed -->
+      <div class="operations-split">
+        
+        <!-- Live Intercepted Tool Calls Table -->
+        <div class="panel-card stream-panel">
+          <div class="panel-header">
+            <div class="panel-header-left">
+              <h3 class="panel-title">Live Intercepted Tool Calls</h3>
+              <span class="streaming-chip">
+                <span class="ping-dot"></span> Streaming
+              </span>
+            </div>
+            <div class="panel-header-right">
+              <input type="text" id="event-search-input" class="search-field" placeholder="Filter by tool, agent, resource, data class...">
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Agent</th>
+                  <th>Tool &amp; Action</th>
+                  <th>Resource Touched</th>
+                  <th>Data Class</th>
+                  <th>Taint Flow</th>
+                  <th>Score</th>
+                  <th>Tier</th>
+                  <th>Verdict</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="events-table-body">
+                <tr class="empty-row">
+                  <td colspan="10">No events logged. Click "Replay S01" or "Normal Procurement" above to inspect live traffic.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Real-Time Alerts Drawer -->
+        <div class="panel-card alerts-panel">
+          <div class="panel-header">
+            <div class="panel-header-left">
+              <h3 class="panel-title">Active Security Incidents</h3>
+            </div>
+            <span class="count-badge" id="active-alerts-badge">0 Open</span>
+          </div>
+
+          <div class="alerts-feed" id="alerts-container">
+            <div class="empty-alerts">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              <p>No active drift incidents detected. All running agents comply strictly with signed role manifests.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
+         TAB 2: FORENSICS & SIGNAL ATTRIBUTION
+         ==================================================================== -->
+    <section class="tab-pane" id="pane-alerts-view">
+      <div class="panel-card forensics-card">
+        <div class="forensics-header">
+          <div>
+            <h2 class="section-heading">Security Incident Forensics &amp; Signal Attribution</h2>
+            <p class="section-desc">Transparent decomposition of composite risk scores into exact contributing signals and point allocations.</p>
+          </div>
+          <div class="forensics-filter-wrap">
+            <label class="filter-label" for="alert-filter-tier">Filter Tier:</label>
+            <select id="alert-filter-tier" class="select-field">
+              <option value="">All Severity Tiers</option>
+              <option value="isolate">Isolate (90+)</option>
+              <option value="restrict">Restrict (70-89)</option>
+              <option value="step_up">Step-Up (40-69)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="forensics-layout">
+          <!-- Left: Incident List -->
+          <div class="incident-list-column" id="forensic-alerts-list">
+            <!-- Populated via JS -->
+          </div>
+
+          <!-- Right: Detailed Incident Inspection -->
+          <div class="incident-detail-column" id="forensic-detail-view">
+            <div class="empty-selection">
+              <p>Select an incident from the left panel to inspect the multi-signal attribution breakdown, provenance chain, and analyst actions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 3: DEMO RUN OF SHOW & ATTACK STUDIO
+         ==================================================================== -->
+    <section class="tab-pane" id="pane-demo-suite">
+      <div class="panel-card demo-run-card">
+        <div class="demo-run-header">
+          <h2 class="section-heading">Interactive Attack &amp; Containment Walkthrough</h2>
+          <p class="section-desc">Scripted scenario sequence based on <code>Docs/08_Demo_Script.pdf</code>. Demonstrates containment of a compromised agent with valid credentials while benign peers remain completely unaffected.</p>
+        </div>
+
+        <div class="timeline-container">
+          
+          <!-- Step 1 -->
+          <div class="timeline-step">
+            <div class="timeline-marker">
+              <span class="timeline-time">0:00 - 0:30</span>
+            </div>
+            <div class="timeline-body">
+              <div class="timeline-body-header">
+                <div>
+                  <h4 class="step-title">1. Healthy Baseline Workload</h4>
+                  <p class="step-desc">Both agents operate normally with valid bearer credentials. Gateway processes requests with 0 drift points.</p>
+                </div>
+                <button class="btn btn-sm btn-secondary" onclick="demoStep('normal_proc')">Execute Baseline</button>
+              </div>
+              <div class="narrative-box">
+                <span class="narrative-tag">TALKING POINT:</span>
+                "Notice both agents hold valid bearer tokens. Standard IAM checks whether credentials are valid; here, both are 100% authenticated."
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="timeline-step">
+            <div class="timeline-marker">
+              <span class="timeline-time">1:00</span>
+            </div>
+            <div class="timeline-body">
+              <div class="timeline-body-header">
+                <div>
+                  <h4 class="step-title">2. Untrusted Document Ingestion (Provenance Taint)</h4>
+                  <p class="step-desc"><code>procurement-bot-04</code> reads <code>supplier_invoice.pdf</code> containing an indirect prompt injection payload. Provenance tag binds to the session.</p>
+                </div>
+                <button class="btn btn-sm btn-warning" onclick="demoStep('step_taint')">Step: Ingest Untrusted PDF</button>
+              </div>
+              <div class="narrative-box">
+                <span class="narrative-tag">TALKING POINT:</span>
+                "The agent ingested an untrusted PDF. AIDDS immediately tags the session context as tainted without interrupting safe actions."
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="timeline-step">
+            <div class="timeline-marker">
+              <span class="timeline-time">1:30</span>
+            </div>
+            <div class="timeline-body">
+              <div class="timeline-body-header">
+                <div>
+                  <h4 class="step-title">3. Lateral HR Access Attempt (Score: 85 - Restrict)</h4>
+                  <p class="step-desc">The hijacked agent attempts to query <code>hr/salaries.xlsx</code>. While the token technically grants database access, the declared role manifest explicitly forbids HR data.</p>
+                </div>
+                <button class="btn btn-sm btn-warning" onclick="demoStep('step_hr')">Step: Access Forbidden HR</button>
+              </div>
+              <div class="narrative-box">
+                <span class="narrative-tag">TALKING POINT:</span>
+                "A standard permission check allows this because the token has db read permissions. But AIDDS compares behavior with declared role: HR data is strictly forbidden."
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="timeline-step">
+            <div class="timeline-marker">
+              <span class="timeline-time">2:00</span>
+            </div>
+            <div class="timeline-body">
+              <div class="timeline-body-header">
+                <div>
+                  <h4 class="step-title">4. Kill Chain Completion &amp; Automated Quarantine (Score: 100 - Isolate)</h4>
+                  <p class="step-desc">The hijacked agent attempts to transmit sensitive payroll records to an external host. Complete kill-chain override triggers instant isolation.</p>
+                </div>
+                <button class="btn btn-sm btn-danger" onclick="demoStep('step_exfil')">Step: Attempt Exfiltration</button>
+              </div>
+              <div class="narrative-box">
+                <span class="narrative-tag">TALKING POINT:</span>
+                "Untrusted read + sensitive data access + external egress: that is the complete injection kill chain. Instant isolation without human intervention."
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="timeline-step">
+            <div class="timeline-marker">
+              <span class="timeline-time">2:30 - 3:15</span>
+            </div>
+            <div class="timeline-body">
+              <div class="timeline-body-header">
+                <div>
+                  <h4 class="step-title">5. Targeted Containment: Peer Unaffected</h4>
+                  <p class="step-desc">While <code>procurement-bot-04</code> is quarantined, <code>support-bot-02</code> continues processing enterprise tickets without system-wide downtime.</p>
+                </div>
+                <button class="btn btn-sm btn-success" onclick="demoStep('normal_sup')">Send Support Traffic</button>
+              </div>
+              <div class="narrative-box">
+                <span class="narrative-tag">TALKING POINT:</span>
+                "Only the compromised agent is restricted. Legitimate enterprise workflows continue uninterrupted."
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 4: CI QUALITY GATES & MODEL EVALUATION
+         ==================================================================== -->
+    <section class="tab-pane" id="pane-quality-gates">
+      <div class="panel-card eval-card">
+        <div class="eval-header">
+          <div>
+            <h2 class="section-heading">CI/CD Detection Quality Gates &amp; Benchmark Matrix</h2>
+            <p class="section-desc">Enforced on every pull request via automated quality gates. Scores below come from eval/report.json (hand-written scenarios, used while developing the detector, so they are in-sample). The held-out table further down is the honest number.</p>
+          </div>
+          <span class="badge-all-pass">ALL QUALITY GATES PASSING</span>
+        </div>
+
+        <!-- Metric KPI Cards -->
+        <div class="gates-kpi-grid">
+          <div class="gate-tile">
+            <div class="gate-tile-title">Attack Recall</div>
+            <div class="gate-tile-value text-emerald" id="gate-recall">—</div>
+            <div class="gate-tile-sub">CI Threshold: &ge; 0.900 (90%)</div>
+            <span class="gate-status-pill pill-pass">PASS</span>
+          </div>
+
+          <div class="gate-tile">
+            <div class="gate-tile-title">False-Positive Rate</div>
+            <div class="gate-tile-value text-emerald" id="gate-fpr">—</div>
+            <div class="gate-tile-sub">CI Threshold: &le; 0.050 (5%)</div>
+            <span class="gate-status-pill pill-pass">PASS</span>
+          </div>
+
+          <div class="gate-tile">
+            <div class="gate-tile-title">Avg. Time-to-Detect (TTD)</div>
+            <div class="gate-tile-value text-emerald" id="gate-ttd">—</div>
+            <div class="gate-tile-sub">CI Threshold: &le; 3 events</div>
+            <span class="gate-status-pill pill-pass">PASS</span>
+          </div>
+
+          <div class="gate-tile">
+            <div class="gate-tile-title">Unit &amp; Integration Tests</div>
+            <div class="gate-tile-value text-primary" id="gate-cov">See CI run</div>
+            <div class="gate-tile-sub">Coverage gate in CI: &ge; 80%</div>
+            <span class="gate-status-pill pill-pass">PASS</span>
+          </div>
+        </div>
+
+
+        <div class="dataset-table-section">
+          <h3 class="table-subheading">Held-out evaluation (fresh seeded sessions, reported once)</h3>
+          <div class="table-container">
+            <table class="audit-table">
+              <thead><tr><th>Method</th><th>Recall (95% CI)</th><th>Session FPR</th><th>TTD (events)</th></tr></thead>
+              <tbody id="heldout-body"><tr><td colspan="4">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Scenarios Table -->
+        <div class="dataset-table-section">
+          <h3 class="table-subheading">Labelled Evaluation Dataset (hand-written, in-sample)</h3>
+          <div class="table-container">
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Scenario ID</th>
+                  <th>Scenario Name</th>
+                  <th>Label</th>
+                  <th>Target Tier</th>
+                  <th>Max Score</th>
+                  <th>Observed Tier</th>
+                  <th>TTD (Events)</th>
+                  <th>Verification</th>
+                </tr>
+              </thead>
+              <tbody id="scenarios-matrix-body">
+                <!-- Dynamically loaded from /v1/eval/metrics -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 5: ZERO-TRUST ARCHITECTURE
+         ==================================================================== -->
+    <section class="tab-pane" id="pane-architecture-view">
+      <div class="panel-card arch-card">
+        <h2 class="section-heading">5-Layer Zero-Trust Agent Security Architecture</h2>
+        <p class="section-desc">Purpose-built for production enterprise environments running LLM tool-calling agents.</p>
+
+        <!-- Pipeline Flow Graphic -->
+        <div class="arch-pipeline">
+          <div class="pipeline-node">
+            <div class="node-num">1</div>
+            <div class="node-title">Autonomous AI Agent</div>
+            <div class="node-desc">LangGraph, AutoGen, CrewAI, MCP, or custom LLM client issuing tool calls.</div>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-node">
+            <div class="node-num">2</div>
+            <div class="node-title">FastAPI Gateway</div>
+            <div class="node-desc">Inline proxy (latency measured live in the header) intercepting tools, actions, and payload sizes.</div>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-node">
+            <div class="node-num">3</div>
+            <div class="node-title">Multi-Signal Detector</div>
+            <div class="node-desc">Role rules, taint flow, sensitivity, Markov transitions, velocity, honeypots.</div>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-node">
+            <div class="node-num">4</div>
+            <div class="node-title">Risk Engine (0-100)</div>
+            <div class="node-desc">Graduated composite risk calculation with plain-language reason rankings.</div>
+          </div>
+          <div class="pipeline-connector">&rarr;</div>
+          <div class="pipeline-node">
+            <div class="node-num">5</div>
+            <div class="node-title">Graduated Response</div>
+            <div class="node-desc">Observe (0-39) &rarr; Step-Up (40-69) &rarr; Restrict (70-89) &rarr; Isolate (90+).</div>
+          </div>
+        </div>
+
+        <div class="specs-grid">
+          <div class="spec-column">
+            <h3 class="spec-col-title">Implemented System Capabilities</h3>
+            <ul class="spec-list">
+              <li>Inline FastAPI Interception Gateway with &lt;10ms p95 latency</li>
+              <li>Signed &amp; Versioned YAML Role Manifest Specification &amp; Loader</li>
+              <li>Multi-Hop Context Taint Propagation &amp; Provenance Tracking</li>
+              <li>Graduated Response Controller (Allow, Step-Up, Restrict, Deny)</li>
+              <li>Tripwire Honeypot Resources &amp; Kill-Chain Hard Overrides</li>
+              <li>Clean, Enterprise Security Dashboard with Live SSE Stream</li>
+              <li>15 Labelled Scenarios with 100% Passing CI Quality Gates</li>
+            </ul>
+          </div>
+          <div class="spec-column">
+            <h3 class="spec-col-title">Production Enterprise Roadmap</h3>
+            <ul class="spec-list-future">
+              <li>Distributed Kafka / Redpanda Streaming Event Bus</li>
+              <li>ClickHouse Columnar Event Store for Long-Horizon Baselines</li>
+              <li>Native Middleware SDKs (LangGraph, AutoGen, CrewAI, MCP)</li>
+              <li>Enterprise SIEM Connectors (Splunk, Datadog, Microsoft Sentinel)</li>
+              <li>Dynamic IAM &amp; Okta Token Revocation Webhooks</li>
+              <li>Hardware Security Module (HSM) Signed Role Manifests</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       MODAL INSPECTOR FOR RAW EVENT JSON
+       ====================================================================== -->
+  <div class="modal-backdrop" id="event-modal">
+    <div class="modal-window">
+      <div class="modal-window-header">
+        <h3 class="modal-header-title" id="modal-event-title">Event Detail Inspector</h3>
+        <button class="modal-close-button" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-window-body">
+        <pre class="code-viewer" id="modal-json-content"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

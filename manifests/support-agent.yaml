@@ -1,0 +1,44 @@
+# AIDDS Role Manifest — Support Agent
+# See: docs/05_Role_Manifest_Spec.pdf
+
+role: support-agent
+version: 1
+owner: customer-support-team
+description: Resolves customer tickets using the knowledge base and ticket system.
+
+allowed_tools:
+  - ticket_system
+  - knowledge_base
+  - customer_profile_masked
+
+allowed_data_classes:
+  - ticket
+  - knowledge_base
+  - customer
+
+forbidden_data_classes:
+  - hr
+  - finance
+  - finance_ledger
+  - payroll
+
+egress_allowlist:
+  - helpdesk.internal
+  - email-gateway.internal
+
+limits:
+  max_records_per_call: 50
+  max_bytes_out_per_hour: 2000000
+  max_calls_per_minute: 45
+
+requires_approval: []
+
+delegation:
+  may_call: []
+  pass_scopes: []
+
+honeypots:
+  - hr/salaries_2026_FULL.xlsx
+  - source_code/repo_backup.tar.gz
+
+signature: "ed25519:aidds-owner:bn3YiiGHS2wvqLoVvax5c2pKUe4l3akoVlrZJpqL38gCpnJ+DCXcGDCzU0C9VWie7t59wU5L9ldAkxSxQpFnBA=="

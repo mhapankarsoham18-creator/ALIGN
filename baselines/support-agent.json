@@ -1,0 +1,31 @@
+{
+ "role": "support-agent",
+ "decay": 0.9995,
+ "bigrams": {
+  "<start>": {
+   "knowledge_base": 47.640568,
+   "customer_profile_masked": 42.146481,
+   "ticket_system": 52.281539
+  },
+  "knowledge_base": {
+   "knowledge_base": 216.100798,
+   "customer_profile_masked": 269.09384,
+   "ticket_system": 152.030853
+  },
+  "customer_profile_masked": {
+   "knowledge_base": 244.114834,
+   "ticket_system": 117.569165,
+   "customer_profile_masked": 227.410883
+  },
+  "ticket_system": {
+   "knowledge_base": 181.434104,
+   "customer_profile_masked": 104.004751,
+   "ticket_system": 196.75327
+  }
+ },
+ "unigrams": {
+  "knowledge_base": 689.290304,
+  "customer_profile_masked": 642.655954,
+  "ticket_system": 518.634826
+ }
+}

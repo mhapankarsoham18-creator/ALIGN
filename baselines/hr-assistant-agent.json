@@ -1,0 +1,31 @@
+{
+ "role": "hr-assistant-agent",
+ "decay": 0.9995,
+ "bigrams": {
+  "<start>": {
+   "org_chart_api": 44.782878,
+   "onboarding_docs": 46.432465,
+   "leave_policy_api": 50.131481
+  },
+  "org_chart_api": {
+   "leave_policy_api": 151.155091,
+   "onboarding_docs": 233.073318,
+   "org_chart_api": 288.936377
+  },
+  "leave_policy_api": {
+   "leave_policy_api": 151.253491,
+   "org_chart_api": 115.654771,
+   "onboarding_docs": 205.852223
+  },
+  "onboarding_docs": {
+   "leave_policy_api": 154.338049,
+   "onboarding_docs": 130.385526,
+   "org_chart_api": 281.837542
+  }
+ },
+ "unigrams": {
+  "org_chart_api": 731.211567,
+  "leave_policy_api": 506.878111,
+  "onboarding_docs": 615.743531
+ }
+}

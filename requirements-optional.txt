@@ -1,0 +1,4 @@
+# Optional extras (not needed for the core detector)
+# Semantic-drift signal using sentence embeddings (large download: pulls in PyTorch).
+# Enable with AIDDS_ENABLE_EMBEDDINGS=true
+sentence-transformers>=3.0,<6

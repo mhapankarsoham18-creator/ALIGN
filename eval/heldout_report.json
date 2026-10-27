@@ -1,0 +1,1030 @@
+{
+  "split": "heldout",
+  "seed": 4242,
+  "methods": {
+    "aidds": {
+      "recall": 0.857,
+      "recall_ci95": [
+        0.79,
+        0.906
+      ],
+      "session_fpr": 0.005,
+      "session_fpr_ci95": [
+        0.001,
+        0.028
+      ],
+      "mean_ttd_events": 0.34,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "mimicry": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "honeypot": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    },
+    "permission_only": {
+      "recall": 0.714,
+      "recall_ci95": [
+        0.635,
+        0.783
+      ],
+      "session_fpr": 0.0,
+      "session_fpr_ci95": [
+        0.0,
+        0.019
+      ],
+      "mean_ttd_events": 0,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "mimicry": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        },
+        "honeypot": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    },
+    "static_thresholds": {
+      "recall": 0.686,
+      "recall_ci95": [
+        0.605,
+        0.757
+      ],
+      "session_fpr": 0.0,
+      "session_fpr_ci95": [
+        0.0,
+        0.019
+      ],
+      "mean_ttd_events": 0,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "mimicry": {
+          "recall": 0.8,
+          "n": 20,
+          "ci95": [
+            0.584,
+            0.919
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "honeypot": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    },
+    "zscore_volume": {
+      "recall": 0.286,
+      "recall_ci95": [
+        0.217,
+        0.365
+      ],
+      "session_fpr": 0.175,
+      "session_fpr_ci95": [
+        0.129,
+        0.234
+      ],
+      "mean_ttd_events": 0.5,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        },
+        "stolen_token": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        },
+        "mimicry": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "honeypot": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    }
+  },
+  "ablations": {
+    "aidds_minus_taint_flow": {
+      "recall": 0.857,
+      "recall_ci95": [
+        0.79,
+        0.906
+      ],
+      "session_fpr": 0.0,
+      "session_fpr_ci95": [
+        0.0,
+        0.019
+      ],
+      "mean_ttd_events": 0.34,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "mimicry": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "honeypot": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    },
+    "aidds_minus_kill_chain": {
+      "recall": 0.857,
+      "recall_ci95": [
+        0.79,
+        0.906
+      ],
+      "session_fpr": 0.005,
+      "session_fpr_ci95": [
+        0.001,
+        0.028
+      ],
+      "mean_ttd_events": 0.34,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "mimicry": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "honeypot": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    },
+    "aidds_minus_sequence_rarity": {
+      "recall": 0.857,
+      "recall_ci95": [
+        0.79,
+        0.906
+      ],
+      "session_fpr": 0.005,
+      "session_fpr_ci95": [
+        0.001,
+        0.028
+      ],
+      "mean_ttd_events": 0.34,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "mimicry": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "honeypot": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    },
+    "aidds_minus_distribution_drift": {
+      "recall": 0.857,
+      "recall_ci95": [
+        0.79,
+        0.906
+      ],
+      "session_fpr": 0.005,
+      "session_fpr_ci95": [
+        0.001,
+        0.028
+      ],
+      "mean_ttd_events": 0.34,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "mimicry": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "honeypot": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    },
+    "aidds_minus_cumulative_drift": {
+      "recall": 0.857,
+      "recall_ci95": [
+        0.79,
+        0.906
+      ],
+      "session_fpr": 0.005,
+      "session_fpr_ci95": [
+        0.001,
+        0.028
+      ],
+      "mean_ttd_events": 0.34,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "mimicry": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "honeypot": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    },
+    "aidds_minus_velocity": {
+      "recall": 0.714,
+      "recall_ci95": [
+        0.635,
+        0.783
+      ],
+      "session_fpr": 0.0,
+      "session_fpr_ci95": [
+        0.0,
+        0.019
+      ],
+      "mean_ttd_events": 0,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "mimicry": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        },
+        "honeypot": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    },
+    "aidds_minus_misuse_pattern": {
+      "recall": 0.829,
+      "recall_ci95": [
+        0.758,
+        0.882
+      ],
+      "session_fpr": 0.005,
+      "session_fpr_ci95": [
+        0.001,
+        0.028
+      ],
+      "mean_ttd_events": 0.35,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "mimicry": {
+          "recall": 0.8,
+          "n": 20,
+          "ci95": [
+            0.584,
+            0.919
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "honeypot": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    },
+    "aidds_minus_identity_mismatch": {
+      "recall": 0.857,
+      "recall_ci95": [
+        0.79,
+        0.906
+      ],
+      "session_fpr": 0.005,
+      "session_fpr_ci95": [
+        0.001,
+        0.028
+      ],
+      "mean_ttd_events": 0.34,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "mimicry": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "honeypot": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    },
+    "aidds_minus_honeypot": {
+      "recall": 0.857,
+      "recall_ci95": [
+        0.79,
+        0.906
+      ],
+      "session_fpr": 0.005,
+      "session_fpr_ci95": [
+        0.001,
+        0.028
+      ],
+      "mean_ttd_events": 0.34,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "mimicry": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "honeypot": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    },
+    "aidds_minus_role_violation": {
+      "recall": 0.793,
+      "recall_ci95": [
+        0.718,
+        0.852
+      ],
+      "session_fpr": 0.005,
+      "session_fpr_ci95": [
+        0.001,
+        0.028
+      ],
+      "mean_ttd_events": 0.64,
+      "per_attack": {
+        "injection_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "injection_no_egress": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "stolen_token": {
+          "recall": 0.75,
+          "n": 20,
+          "ci95": [
+            0.531,
+            0.888
+          ]
+        },
+        "mimicry": {
+          "recall": 0.8,
+          "n": 20,
+          "ci95": [
+            0.584,
+            0.919
+          ]
+        },
+        "low_slow_exfil": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "honeypot": {
+          "recall": 1.0,
+          "n": 20,
+          "ci95": [
+            0.839,
+            1.0
+          ]
+        },
+        "in_scope_shift": {
+          "recall": 0.0,
+          "n": 20,
+          "ci95": [
+            0.0,
+            0.161
+          ]
+        }
+      },
+      "attacks": 140,
+      "benign_sessions": 200
+    }
+  }
+}
